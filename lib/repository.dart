@@ -10,11 +10,10 @@ class Repository implements IRepository<TodoModel> {
   @override
   Future<TodoModel> get() async {
     try {
-      Response res = await Dio().get("");
-      debugPrint("DEBUG success response === $res");
+      Response res = await Dio().get("http://169.254.66.42:1000");
       return TodoModel(id: 1, title: res.toString());
-    } catch (err) {
-      debugPrint("DEBUG error message === $err");
+    } on DioError catch (e) {
+      debugPrint("DEBUG error message === $e");
       throw Error();
     }
   }

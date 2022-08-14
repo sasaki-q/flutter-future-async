@@ -1,3 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:asyncdemo/model.dart';
+import 'package:asyncdemo/repository.dart';
 
-final myFutureProvider = FutureProvider.autoDispose((ref) => {});
+final myRepositoryProvider = Provider<IRepository<TodoModel>>(
+  (ref) => Repository(),
+);
+
+final myFutureProvider = FutureProvider.autoDispose<TodoModel>(
+  (ref) => ref.watch(myRepositoryProvider).get(),
+);
